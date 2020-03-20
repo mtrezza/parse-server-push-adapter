@@ -230,26 +230,17 @@ export class APNS {
 
   /**
    * Choose appropriate providers based on device appIdentifier.
-   *
    * @param {String} appIdentifier appIdentifier for required provider
    * @returns {Array} Returns Array with appropriate providers
    */
   _chooseProviders(appIdentifier) {
-    // If the device we need to send to does not have appIdentifier, any provider could be a qualified provider
-    /*if (!appIdentifier || appIdentifier === '') {
-        return this.providers.map((provider) => provider.index);
-    }*/
-
-    // Otherwise we try to match the appIdentifier with topic on provider
-    let qualifiedProviders = this.providers.filter((provider) => appIdentifier === provider.topic);
-
-    if (qualifiedProviders.length > 0) {
-      return qualifiedProviders;
+    // If there are providers without topic
+    if (this.providers.filter(provider => !provider.topic || provider.topic === '').length > 0) {
+      log.warn(LOG_PREFIX, "Ignoring APNS push providers without topic");
     }
 
-    // If qualifiedProviders empty, add all providers without topic
-    return this.providers
-      .filter((provider) => !provider.topic || provider.topic === '');
+    // Return provider where topic matches appIdentifier; only return matching providers as deviceTokens of failing push notification get cleaned up if `PARSE_SERVER_CLEANUP_INVALID_INSTALLATIONS` is enabled
+    return this.providers.filter(provider => provider.topic === appIdentifier);
   }
 
   _handlePromise(response) {
