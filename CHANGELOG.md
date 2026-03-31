@@ -1,3 +1,10 @@
+# [8.4.0](https://github.com/parse-community/parse-server-push-adapter/compare/8.3.1...8.4.0) (2026-03-31)
+
+
+### Features
+
+* Add experimental native APNs API ([#547](https://github.com/parse-community/parse-server-push-adapter/issues/547)) ([cabcd54](https://github.com/parse-community/parse-server-push-adapter/commit/cabcd54d0cc2debe08148cd1ceea4bdcc766acc8))
+
 ## [8.3.1](https://github.com/parse-community/parse-server-push-adapter/compare/8.3.0...8.3.1) (2026-02-21)
 
 
